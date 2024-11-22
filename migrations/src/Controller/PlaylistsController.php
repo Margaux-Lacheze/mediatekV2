@@ -34,9 +34,7 @@ class PlaylistsController extends AbstractController {
      */
     private $categorieRepository;    
     
-    const TEMPLATE_PLAYLISTS = "pages/playlists.html.twig";
-    
-    public function __construct(PlaylistRepository $playlistRepository, 
+    function __construct(PlaylistRepository $playlistRepository, 
             CategorieRepository $categorieRepository,
             FormationRepository $formationRespository) {
         $this->playlistRepository = $playlistRepository;
@@ -52,7 +50,7 @@ class PlaylistsController extends AbstractController {
     public function index(): Response{
         $playlists = $this->playlistRepository->findAllOrderByName('ASC');
         $categories = $this->categorieRepository->findAll();
-        return $this->render(self::TEMPLATE_PLAYLISTS, [
+        return $this->render("pages/playlists.html.twig", [
             'playlists' => $playlists,
             'categories' => $categories            
         ]);
@@ -60,11 +58,13 @@ class PlaylistsController extends AbstractController {
 
     #[Route('/playlists/tri/{champ}/{ordre}', name: 'playlists.sort')]
     public function sort($champ, $ordre): Response{
-        if($champ == "name"){
+        switch($champ){
+            case "name":
                 $playlists = $this->playlistRepository->findAllOrderByName($ordre);
+                break;
         }
         $categories = $this->categorieRepository->findAll();
-        return $this->render(self::TEMPLATE_PLAYLISTS, [
+        return $this->render("pages/playlists.html.twig", [
             'playlists' => $playlists,
             'categories' => $categories            
         ]);
@@ -75,7 +75,7 @@ class PlaylistsController extends AbstractController {
         $valeur = $request->get("recherche");
         $playlists = $this->playlistRepository->findByContainValue($champ, $valeur, $table);
         $categories = $this->categorieRepository->findAll();
-        return $this->render(self::TEMPLATE_PLAYLISTS, [
+        return $this->render("pages/playlists.html.twig", [
             'playlists' => $playlists,
             'categories' => $categories,            
             'valeur' => $valeur,
