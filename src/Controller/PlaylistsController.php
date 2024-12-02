@@ -63,6 +63,9 @@ class PlaylistsController extends AbstractController {
         if($champ == "name"){
                 $playlists = $this->playlistRepository->findAllOrderByName($ordre);
         }
+        if($champ == "number") {
+            $playlists = $this->playlistRepository->findAllOrderByFormationsNumber($ordre);
+        }
         $categories = $this->categorieRepository->findAll();
         return $this->render(self::TEMPLATE_PLAYLISTS, [
             'playlists' => $playlists,
