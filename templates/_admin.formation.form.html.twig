@@ -1,0 +1,32 @@
+{{ form_start(formformation) }}
+<div class="row">
+    <div class="col-auto">
+        <!-- emplacement video -->
+        {% if formation.videoid %}
+            <div style="width: 560px; height: 315px; float: none; clear: both; margin: 2px auto;">
+                <embed
+                    src="https://www.youtube.com/embed/{{ formation.videoid }}" 
+                    wmode="transparent"
+                    type="video/mp4"
+                    width="100%" height="100%"
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                    allowfullscreen
+                    title="YouTube video player"
+                    >
+            </div>                                             
+        {% endif %}
+        {{ form_row(formformation.videoId) }}
+    </div>
+    <div class="col">
+        {{ form_row(formformation.publishedAt) }}
+        {{ form_row(formformation.title) }}
+        {{ form_row(formformation.categories) }}
+        {{ form_row(formformation.playlist) }}
+        {{ form_row(formformation.description, {'attr': {'class': 'form-control', 'style': 'height: 150px;'}}) }}
+        <div class="container d-flex align-items-center justify-content-center">
+            {{ form_row(formformation.submit) }}
+        </div>            
+    </div>
+
+</div>
+{{ form_end(formformation) }}

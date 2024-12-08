@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\FormationRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
 class Formation
@@ -23,18 +26,22 @@ class Formation
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $publishedAt = null;
+    #[Assert\NotBlank(message: "Vous devez choisir une date de publication")]
+    private ?DateTimeInterface $publishedAt = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    #[Assert\NotBlank(message: "Vous devez donner un titre à la formation")]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true, length: 900)]
     private ?string $description = null;
 
     #[ORM\Column(length: 20, nullable: true)]
+    #[Assert\NotBlank(message: "Vous devez ajouter l'identifiant de la vidéo")]
     private ?string $videoId = null;
 
     #[ORM\ManyToOne(inversedBy: 'formations')]
+    #[Assert\NotBlank(message: "La formation doit appartenir à une playlist")]
     private ?Playlist $playlist = null;
 
     /**
@@ -53,12 +60,12 @@ class Formation
         return $this->id;
     }
 
-    public function getPublishedAt(): ?\DateTimeInterface
+    public function getPublishedAt(): ?DateTimeInterface
     {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(?\DateTimeInterface $publishedAt): static
+    public function setPublishedAt(?DateTimeInterface $publishedAt): static
     {
         $this->publishedAt = $publishedAt;
 
