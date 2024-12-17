@@ -88,8 +88,10 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ path('admin.formation.edit', {id:formation.id}) }}" class="btn btn-secondary">Editer</a>
-                        <a href="{{ path('admin.formations.suppr', {id:formation.id}) }}" class="btn btn-danger" onclick="return confirm('Etes-vous sûr de vouloir supprimer {{formation.title}} ?')">Supprimer</a>
+                        <div class="d-flex gap-2">
+                            <a href="{{ path('admin.formation.edit', {id:formation.id}) }}" class="btn btn-secondary btn-sm">Editer</a>
+                            <a href="{{ path('admin.formations.suppr', {id:formation.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Etes-vous sûr de vouloir supprimer {{formation.title}} ?')">Supprimer</a>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
