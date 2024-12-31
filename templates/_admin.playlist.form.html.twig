@@ -1,0 +1,12 @@
+{{ form_start(formplaylist) }}
+<div class="row">
+    <div class="col">
+        {{ form_row(formplaylist.name) }}
+        {{ form_row(formplaylist.description, {'attr': {'class': 'form-control', 'style': 'height: 250px;'}}) }}
+        <div class="container d-flex align-items-center justify-content-center">
+            {{ form_row(formplaylist.submit) }}
+        </div>    
+    </div>
+
+</div>
+{{ form_end(formplaylist) }}
