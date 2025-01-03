@@ -52,13 +52,13 @@ class AdminCategoriesController extends AbstractController{
     public function ajout(Request $request): Response {
         if ($this->isCsrfTokenValid('form_ajout_categorie', $request->get('_token'))) {
             $nomCategorie = $request->get("nom");
-            $nomExistant = $this->categorieRepository->findByName($nomCategorie);
-            if (empty($nomExistant)) {
+            $nomExistant = $this->categorieRepository->findOneBy(["name" => $nomCategorie]);
+            if ($nomExistant) {
+                $this->addFlash('danger', "Impossible d'ajouter une catégorie qui existe déjà");
+            } else {
                 $categorie = new Categorie();
                 $categorie->setName($nomCategorie);
                 $this->categorieRepository->add($categorie, true);
-            } else {
-                $this->addFlash('danger', "Impossible d'ajouter une catégorie qui existe déjà");
             }
         }
         return $this->redirectToRoute('admin.categories');
