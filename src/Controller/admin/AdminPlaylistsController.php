@@ -48,10 +48,6 @@ class AdminPlaylistsController extends AbstractController {
         $this->formationRepository = $formationRespository;
     }
 
-    /**
-     * @Route("/admin/playlists", name="admin.playlists")
-     * @return Response
-     */
     #[Route('/admin/playlists', name: 'admin.playlists')]
     public function index(): Response {
         $playlists = $this->playlistRepository->findAllOrderByName('ASC');
