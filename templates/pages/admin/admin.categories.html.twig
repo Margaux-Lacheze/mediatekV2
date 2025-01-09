@@ -7,11 +7,11 @@
             {{ message }}
         </div>
     {% endfor %}
-    <h3>Ajouter une catégorie:</h3>
+    <h3>Ajouter une catégorie :</h3>
     <form class="form-inline mt-1" method="POST" action="{{ path('admin.categorie.ajout') }}">
         <div class="form-group mr-1 mb-2">
             <input type="text" class="sm" name="nom">
-            <inpu type="hidden" name="_token" value="{{ csrf_token('form_ajout_categorie') }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('ajout_categorie') }}">
             <button type="submit" class="btn btn-primary mb-2 btn-sm">Ajouter</button>
         </div>
     </form>

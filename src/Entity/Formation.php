@@ -27,6 +27,7 @@ class Formation
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Assert\NotBlank(message: "Vous devez choisir une date de publication")]
+    #[Assert\LessThanOrEqual("today", message: "La date ne peut pas être postérieure à celle d'aujourd'hui")]
     private ?DateTimeInterface $publishedAt = null;
 
     #[ORM\Column(length: 100, nullable: true)]

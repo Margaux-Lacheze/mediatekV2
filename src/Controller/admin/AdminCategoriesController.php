@@ -48,20 +48,20 @@ class AdminCategoriesController extends AbstractController{
         }
     }
     
-    #[Route('admin/categories/ajout', name:'admin.categorie.ajout')]
+    #[Route('admin/categories/ajout', name: 'admin.categorie.ajout')]
     public function ajout(Request $request): Response {
-        if ($this->isCsrfTokenValid('form_ajout_categorie', $request->get('_token'))) {
+        if ($this->isCsrfTokenValid('ajout_categorie', $request->get('_token'))) {
             $nomCategorie = $request->get("nom");
-            $nomExistant = $this->categorieRepository->findOneBy(["name" => $nomCategorie]);
+            $nomExistant = $this->categorieRepository->findByName($nomCategorie);
             if ($nomExistant) {
-                $this->addFlash('danger', "Impossible d'ajouter une catégorie qui existe déjà");
+                $this->addFlash('danger', 'Une catégorie du même nom existe déjà');
+                return $this->redirectToRoute('admin.categories');
             } else {
                 $categorie = new Categorie();
                 $categorie->setName($nomCategorie);
                 $this->categorieRepository->add($categorie, true);
+                return $this->redirectToRoute('admin.categories');
             }
         }
-        return $this->redirectToRoute('admin.categories');
     }
 }
-
