@@ -12,6 +12,6 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
         server: node255-eu.n0c.com
-        server-dir: /public_html/mediatekformation/
+        server-dir: /www/mediatekformation/
         username: htbyttcb@mediatekformationbts.fr
         password: ${{ secrets.ftp_password }}
